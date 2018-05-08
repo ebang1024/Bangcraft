@@ -30,9 +30,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //adding the sprite
         addChild(player)
         
-     //   let backgroundMusic = SKAudioNode(fileNamed: "gameMusic.mp3")
-     //   backgroundMusic.autoplayLooped = true
-      //  addChild(backgroundMusic)
+       let backgroundMusic = SKAudioNode(fileNamed: "gameMusic.mp3")
+       backgroundMusic.autoplayLooped = true
+        addChild(backgroundMusic)
         
 }
 }
