@@ -34,5 +34,57 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
        backgroundMusic.autoplayLooped = true
         addChild(backgroundMusic)
         
+
+    // Create infinite monsters
+    run(SKAction.repeatForever(SKAction.sequence([SKAction.run(addMonster), SKAction.wait(forDuration: 1.0)])))
+}
+func random() -> CGFloat {
+    return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+}
+func random(min: CGFloat, max: CGFloat) -> CGFloat {
+    return random() * (min - max) + min
+}
+
+func addMonster() {
+    // create sprite node
+    let monster = SKSpriteNode(imageNamed: "WaterMilan")
+    
+    // Creates physics body for the sprite:
+    monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
+    
+    // Movements of the monster only happen in code (those moveActions we set up):
+    monster.physicsBody?.isDynamic = true
+    
+    // We set that category bitmask to monster here:
+    monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster
+    
+    // Let us know when a monster and projectile contact
+    monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
+    
+    // Let’s things go through it instead of bounce off it. We don’t want things to bounce off stuff
+    monster.physicsBody?.collisionBitMask = PhysicsCategory.None
+    
+    //determine where to put the enemy on y axis
+    let actualY = random(min: monster.size.height/2, max: monster.size.height/9)
+    
+    //place monster slightly off screen
+    monster.position = CGPoint(x: size.width + monster.size.width/2, y: actualY)
+    
+    //add monster to screen
+    addChild(monster)
+    
+    //determine speed of monster
+    let actualDuration = random(min: CGFloat(4.0), max: CGFloat(8.0))
+    
+    //create two actions
+    let actionMove = SKAction.move(to: CGPoint(x: monster.size.width/2, y: actualY), duration: TimeInterval(actualDuration))
+    let actionMoveDone = SKAction.removeFromParent()
+    monster.run(SKAction.sequence([actionMove, actionMoveDone]))
+    
+}
+override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    guard let touch = touches.first else {
+        return
+    }
 }
 }
