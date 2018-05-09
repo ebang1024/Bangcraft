@@ -35,4 +35,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(backgroundMusic)
         
 }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
+        run(SKAction.playSoundFileNamed("GAWRSH!!.mp3", waitForCompletion: false))
+        guard let touch = touches.first
+            else { return }
+        
+        let touchLocation = touch.location(in: self)
+        
+        let projectile = SKSpriteNode (imageNamed: "FEH_Orb")
+        
+        projectile.position = player.position
+        
+        let offset = touchLocation - projectile.position
+        if offset.x < 0 {
+            return
+        }
+        addChild(projectile)
+        let direction = offset.normalized()
+        let shootAmount = direction * 1000
+        let realDest = shootAmount + projectile.position
+        
+        let actionMove = SKAction.move(to: realDest, duration: 2.0)
+        let actionMoveDone = SKAction.removeFromParent()
+        projectile.run(SKAction.sequence([actionMove,actionMoveDone]))
+    }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C620D60420A235BC00AA3CA1 /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C620D60320A235BC00AA3CA1 /* VectorMath.swift */; };
 		C620D60620A236C400AA3CA1 /* gameMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C620D60520A236C400AA3CA1 /* gameMusic.mp3 */; };
+		C64ACBCF20A388C4009155B6 /* GAWRSH!!.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C64ACBCE20A388C4009155B6 /* GAWRSH!!.mp3 */; };
 		C67B4979209B9B4300862411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67B4978209B9B4300862411 /* AppDelegate.swift */; };
 		C67B497D209B9B4300862411 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = C67B497C209B9B4300862411 /* Actions.sks */; };
 		C67B497F209B9B4300862411 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67B497E209B9B4300862411 /* GameScene.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		C620D60320A235BC00AA3CA1 /* VectorMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VectorMath.swift; path = ../../../Downloads/NinjaAssets/VectorMath.swift; sourceTree = "<group>"; };
 		C620D60520A236C400AA3CA1 /* gameMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = gameMusic.mp3; path = ../../../Downloads/gameMusic.mp3; sourceTree = "<group>"; };
+		C64ACBCE20A388C4009155B6 /* GAWRSH!!.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "GAWRSH!!.mp3"; path = "../../../Downloads/GAWRSH!!.mp3"; sourceTree = "<group>"; };
 		C67B4975209B9B4300862411 /* Bangcraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bangcraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67B4978209B9B4300862411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C67B497C209B9B4300862411 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				C67B4978209B9B4300862411 /* AppDelegate.swift */,
 				C67B497C209B9B4300862411 /* Actions.sks */,
 				C620D60520A236C400AA3CA1 /* gameMusic.mp3 */,
+				C64ACBCE20A388C4009155B6 /* GAWRSH!!.mp3 */,
 				C67B497E209B9B4300862411 /* GameScene.swift */,
 				C620D60320A235BC00AA3CA1 /* VectorMath.swift */,
 				C67B4980209B9B4300862411 /* GameViewController.swift */,
@@ -138,6 +141,7 @@
 				C620D60620A236C400AA3CA1 /* gameMusic.mp3 in Resources */,
 				C67B4986209B9B4600862411 /* Assets.xcassets in Resources */,
 				C67B4989209B9B4600862411 /* LaunchScreen.storyboard in Resources */,
+				C64ACBCF20A388C4009155B6 /* GAWRSH!!.mp3 in Resources */,
 				C67B497D209B9B4300862411 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
