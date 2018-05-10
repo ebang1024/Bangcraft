@@ -83,11 +83,7 @@ func addMonster() {
     
 }
 override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    guard let touch = touches.first else {
-        return
-    }
-}
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
+    
         run(SKAction.playSoundFileNamed("GAWRSH!!.mp3", waitForCompletion: false))
         guard let touch = touches.first
             else { return }
@@ -112,3 +108,4 @@ override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         projectile.run(SKAction.sequence([actionMove,actionMoveDone]))
     }
 }
+
