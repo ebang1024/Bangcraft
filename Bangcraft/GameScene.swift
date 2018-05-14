@@ -25,7 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     {
         //placing our player sprite
-        player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+        player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.25)
         
         //adding the sprite
         addChild(player)
@@ -65,7 +65,7 @@ func addMonster() {
     monster.physicsBody?.collisionBitMask = PhysicsCategory.None
     
     //determine where to put the enemy on y axis
-    let actualY = random(min: monster.size.height/2, max: monster.size.height/9)
+    let actualY = random(min: monster.size.height/0.5, max: monster.size.height/0.5)
     
     //place monster slightly off screen
     monster.position = CGPoint(x: size.width + monster.size.width/2, y: actualY)
