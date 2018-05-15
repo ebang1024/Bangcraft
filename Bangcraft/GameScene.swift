@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 
+
 struct PhysicsCategory {
     static let None : UInt32 = 0
     static let All : UInt32 = UInt32.max
@@ -18,14 +19,17 @@ struct PhysicsCategory {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     // creating player sprite
-
+    
     let player = SKSpriteNode(imageNamed: "bangbear")
  
-    override func didMove(to view: SKView)
+    override func didMove(to view: SKView){
+        let bgImage = SKSpriteNode(imageNamed: "FlappyFlop")
+        bgImage.position = CGPoint(x:self.size.width/2, y: self.size.height/2)
+        bgImage.zPosition = -1
+        self.addChild(bgImage)
         
-    {
         //placing our player sprite
-        player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.25)
+        player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.2)
         
         //adding the sprite
         addChild(player)
@@ -108,4 +112,5 @@ override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         projectile.run(SKAction.sequence([actionMove,actionMoveDone]))
     }
 }
+
 
