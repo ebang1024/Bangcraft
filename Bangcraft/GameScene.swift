@@ -34,6 +34,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //adding the sprite
         addChild(player)
         
+        physicsWorld.gravity = CGVector.zero
+        physicsWorld.contactDelegate = self
+
+
         let backgroundMusic = SKAudioNode(fileNamed: "gameMusic.mp3")
         backgroundMusic.autoplayLooped = true
         addChild(backgroundMusic)
@@ -46,7 +50,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
     }
     func random(min: CGFloat, max: CGFloat) -> CGFloat {
-        return random() * (min - max) + min
+        return random() * (max - min) + min
     }
     
     func addMonster() {
