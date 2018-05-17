@@ -21,10 +21,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // creating player sprite
     
     let player = SKSpriteNode(imageNamed: "bangbear")
- 
+    
     override func didMove(to view: SKView){
         let bgImage = SKSpriteNode(imageNamed: "FlappyFlop")
-        bgImage.position = CGPoint(x:self.size.width/2, y: self.size.height/2)
+        bgImage.position = CGPoint(x:self.size.width/2, y: self.size.height/2.01)
         bgImage.zPosition = -1
         self.addChild(bgImage)
         
@@ -34,83 +34,105 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //adding the sprite
         addChild(player)
         
-       let backgroundMusic = SKAudioNode(fileNamed: "gameMusic.mp3")
-       backgroundMusic.autoplayLooped = true
+        let backgroundMusic = SKAudioNode(fileNamed: "gameMusic.mp3")
+        backgroundMusic.autoplayLooped = true
         addChild(backgroundMusic)
         
-
-    // Create infinite monsters
-    run(SKAction.repeatForever(SKAction.sequence([SKAction.run(addMonster), SKAction.wait(forDuration: 1.0)])))
-}
-func random() -> CGFloat {
-    return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-}
-func random(min: CGFloat, max: CGFloat) -> CGFloat {
-    return random() * (min - max) + min
-}
-
-func addMonster() {
-    // create sprite node
-    let monster = SKSpriteNode(imageNamed: "WaterMilan")
+        
+        // Create infinite monsters
+        run(SKAction.repeatForever(SKAction.sequence([SKAction.run(addMonster), SKAction.wait(forDuration: 1.0)])))
+    }
+    func random() -> CGFloat {
+        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+    }
+    func random(min: CGFloat, max: CGFloat) -> CGFloat {
+        return random() * (min - max) + min
+    }
     
-    // Creates physics body for the sprite:
-    monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
-    
-    // Movements of the monster only happen in code (those moveActions we set up):
-    monster.physicsBody?.isDynamic = true
-    
-    // We set that category bitmask to monster here:
-    monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster
-    
-    // Let us know when a monster and projectile contact
-    monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
-    
-    // Let’s things go through it instead of bounce off it. We don’t want things to bounce off stuff
-    monster.physicsBody?.collisionBitMask = PhysicsCategory.None
-    
-    //determine where to put the enemy on y axis
-    let actualY = random(min: monster.size.height/2, max: monster.size.height/2)
-    
-    //place monster slightly off screen
-    monster.position = CGPoint(x: size.width + monster.size.width/2, y: actualY)
-    
-    //add monster to screen
-    addChild(monster)
-    
-    //determine speed of monster
-    let actualDuration = random(min: CGFloat(4.0), max: CGFloat(8.0))
-    
-    //create two actions
-    let actionMove = SKAction.move(to: CGPoint(x: monster.size.width/2, y: actualY), duration: TimeInterval(actualDuration))
-    let actionMoveDone = SKAction.removeFromParent()
-    monster.run(SKAction.sequence([actionMove, actionMoveDone]))
-    
-}
-override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
+    func addMonster() {
+        // create sprite node
+        let monster = SKSpriteNode(imageNamed: "WaterMilan")
+        
+        // Creates physics body for the sprite:
+        monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
+        
+        // Movements of the monster only happen in code (those moveActions we set up):
+        monster.physicsBody?.isDynamic = true
+        
+        // We set that category bitmask to monster here:
+        monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster
+        
+        // Let us know when a monster and projectile contact
+        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
+        
+        // Let’s things go through it instead of bounce off it. We don’t want things to bounce off stuff
+        monster.physicsBody?.collisionBitMask = PhysicsCategory.None
+        
+        //determine where to put the enemy on y axis
+        let actualY = random(min: monster.size.height/2, max: monster.size.height/2)
+        
+        //place monster slightly off screen
+        monster.position = CGPoint(x: size.width + monster.size.width/2, y: actualY)
+        
+        //add monster to screen
+        addChild(monster)
+        monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
+        monster.physicsBody?.isDynamic = true
+        monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster
+        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
+        monster.physicsBody?.collisionBitMask = PhysicsCategory.None
+        
+        //determine speed of monster
+        let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+        
+        //create two actions
+        let actionMove = SKAction.move(to: CGPoint(x: monster.size.width/2, y: actualY), duration: TimeInterval(actualDuration))
+        let actionMoveDone = SKAction.removeFromParent()
+        monster.run(SKAction.sequence([actionMove, actionMoveDone]))
+        
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let projectile = SKSpriteNode (imageNamed: "FEH_Orb")
         run(SKAction.playSoundFileNamed("GAWRSH!!.mp3", waitForCompletion: false))
         guard let touch = touches.first
             else { return }
-        
         let touchLocation = touch.location(in: self)
-        
-        let projectile = SKSpriteNode (imageNamed: "FEH_Orb")
-        
         projectile.position = player.position
-        
         let offset = touchLocation - projectile.position
         if offset.x < 0 {
             return
         }
         addChild(projectile)
+        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
+        projectile.physicsBody?.isDynamic = true
+        projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile
+        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Monster
+        projectile.physicsBody?.collisionBitMask = PhysicsCategory.None
+        projectile.physicsBody?.usesPreciseCollisionDetection = true
+        
         let direction = offset.normalized()
         let shootAmount = direction * 1000
         let realDest = shootAmount + projectile.position
-        
         let actionMove = SKAction.move(to: realDest, duration: 2.0)
         let actionMoveDone = SKAction.removeFromParent()
         projectile.run(SKAction.sequence([actionMove,actionMoveDone]))
+        }
+    func projectileDidCollideWithMonster(nodeA: SKSpriteNode, nodeB: SKSpriteNode) {
+        print("Hit")
+        nodeA.removeFromParent()
+        nodeB.removeFromParent()
     }
+    func didBegin(_ contact: SKPhysicsContact) {
+        let firstBody = contact.bodyA
+        let secondBody = contact.bodyB
+        if let monster = firstBody.node as? SKSpriteNode, let
+            projectile = secondBody.node as? SKSpriteNode {
+            projectileDidCollideWithMonster(nodeA: monster, nodeB: projectile)
+            
+        }
+    }
+    
 }
+
 
 
