@@ -73,7 +73,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         monster.physicsBody?.collisionBitMask = PhysicsCategory.None
         
         //determine where to put the enemy on y axis
-        let actualY = random(min: monster.size.height/2, max: monster.size.height/2)
+        let actualY = random(min: monster.size.height/0.6, max: monster.size.height/0.6)
         
         //place monster slightly off screen
         monster.position = CGPoint(x: size.width + monster.size.width/2, y: actualY)
