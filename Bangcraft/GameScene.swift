@@ -24,7 +24,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView){
         let bgImage = SKSpriteNode(imageNamed: "FlappyFlop")
-        bgImage.position = CGPoint(x:self.size.width/2, y: self.size.height/2.01)
+        bgImage.position = CGPoint(x:self.size.width/2, y: self.size.height/2.0)
         bgImage.zPosition = -1
         self.addChild(bgImage)
         
