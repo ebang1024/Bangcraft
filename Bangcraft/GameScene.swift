@@ -56,6 +56,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addMonster() {
         // create sprite node
         let monster = SKSpriteNode(imageNamed: "WaterMilan")
+        let mrquack = SKSpriteNode(imageNamed: "mrquacknormal")
         
         // Creates physics body for the sprite:
         monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
@@ -135,7 +136,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
     }
-    
 }
 
 
