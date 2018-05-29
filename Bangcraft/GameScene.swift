@@ -24,7 +24,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView){
         let bgImage = SKSpriteNode(imageNamed: "FlappyFlop")
-        bgImage.position = CGPoint(x:self.size.width/2, y: self.size.height/2.0)
+        bgImage.position = CGPoint(x:self.size.width/2, y: self.size.height/2)
         bgImage.zPosition = -1
         self.addChild(bgImage)
         
@@ -45,6 +45,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Create infinite monsters
         run(SKAction.repeatForever(SKAction.sequence([SKAction.run(addMonster), SKAction.wait(forDuration: 1.0)])))
+        run(SKAction.repeatForever(SKAction.sequence([SKAction.run(addDuck), SKAction.wait(forDuration: 1.0)])))
+
     }
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
@@ -56,29 +58,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addMonster() {
         // create sprite node
         let monster = SKSpriteNode(imageNamed: "WaterMilan")
-        let mrquack = SKSpriteNode(imageNamed: "mrquacknormal")
-        
         // Creates physics body for the sprite:
         monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
-        
         // Movements of the monster only happen in code (those moveActions we set up):
         monster.physicsBody?.isDynamic = true
-        
         // We set that category bitmask to monster here:
         monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster
-        
         // Let us know when a monster and projectile contact
         monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
-        
         // Let’s things go through it instead of bounce off it. We don’t want things to bounce off stuff
         monster.physicsBody?.collisionBitMask = PhysicsCategory.None
-        
         //determine where to put the enemy on y axis
         let actualY = random(min: monster.size.height/0.6, max: monster.size.height/0.6)
-        
         //place monster slightly off screen
         monster.position = CGPoint(x: size.width + monster.size.width/2, y: actualY)
-        
         //add monster to screen
         addChild(monster)
         monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
@@ -86,15 +79,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster
         monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
         monster.physicsBody?.collisionBitMask = PhysicsCategory.None
-        
-        //determine speed of monster
+       //determine speed of monster
         let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
-        
         //create two actions
         let actionMove = SKAction.move(to: CGPoint(x: monster.size.width/2, y: actualY), duration: TimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()
         monster.run(SKAction.sequence([actionMove, actionMoveDone]))
         
+
+    }
+    func addDuck() {
+        let mrquack = SKSpriteNode(imageNamed: "mrquacknormal")
+mrquack.physicsBody = SKPhysicsBody(rectangleOf: mrquack.size)
+       mrquack.physicsBody?.isDynamic = true
+        mrquack.physicsBody?.categoryBitMask = PhysicsCategory.Monster
+        mrquack.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
+        let actualY2 = random(min: mrquack.size.height/0.6, max: mrquack.size.height/0.6)
+        mrquack.position = CGPoint(x: size.width + mrquack.size.width/2, y: actualY2)
+        addChild(mrquack)
+        mrquack.physicsBody = SKPhysicsBody(rectangleOf: mrquack.size)
+        mrquack.physicsBody?.isDynamic = true
+        mrquack.physicsBody?.categoryBitMask = PhysicsCategory.Monster
+        mrquack.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
+        mrquack.physicsBody?.collisionBitMask = PhysicsCategory.None
+        let actualDuration2 = random(min: CGFloat(2.0), max: CGFloat(4.0))
+        let actionMove2 = SKAction.move(to: CGPoint(x: mrquack.size.width/2, y: actualY2), duration: TimeInterval(actualDuration2))
+        let actionMoveDone2 = SKAction.removeFromParent()
+        mrquack.run(SKAction.sequence([actionMove2, actionMoveDone2]))
+
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let projectile = SKSpriteNode (imageNamed: "FEH_Orb")
@@ -127,6 +139,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         nodeA.removeFromParent()
         nodeB.removeFromParent()
     }
+
     func didBegin(_ contact: SKPhysicsContact) {
         let firstBody = contact.bodyA
         let secondBody = contact.bodyB
