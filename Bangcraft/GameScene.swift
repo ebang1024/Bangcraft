@@ -94,7 +94,7 @@ mrquack.physicsBody = SKPhysicsBody(rectangleOf: mrquack.size)
        mrquack.physicsBody?.isDynamic = true
         mrquack.physicsBody?.categoryBitMask = PhysicsCategory.Monster
         mrquack.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
-        let actualY2 = random(min: mrquack.size.height/0.6, max: mrquack.size.height/0.6)
+        let actualY2 = random(min: mrquack.size.height/2, max: size.height - mrquack.size.height/2)
         mrquack.position = CGPoint(x: size.width + mrquack.size.width/2, y: actualY2)
         addChild(mrquack)
         mrquack.physicsBody = SKPhysicsBody(rectangleOf: mrquack.size)
