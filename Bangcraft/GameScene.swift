@@ -24,7 +24,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView){
         let bgImage = SKSpriteNode(imageNamed: "FlappyFlop")
-        bgImage.position = CGPoint(x:self.size.width/2, y: self.size.height/2)
+        bgImage.position = CGPoint(x:self.size.width/2, y: self.size.height/2.0)
         bgImage.zPosition = -1
         self.addChild(bgImage)
         
@@ -69,7 +69,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Let’s things go through it instead of bounce off it. We don’t want things to bounce off stuff
         monster.physicsBody?.collisionBitMask = PhysicsCategory.None
         //determine where to put the enemy on y axis
-        let actualY = random(min: monster.size.height/0.6, max: monster.size.height/0.6)
+        let actualY = random(min: monster.size.height/0.9, max: monster.size.height/0.9)
         //place monster slightly off screen
         monster.position = CGPoint(x: size.width + monster.size.width/2, y: actualY)
         //add monster to screen
@@ -94,7 +94,7 @@ mrquack.physicsBody = SKPhysicsBody(rectangleOf: mrquack.size)
        mrquack.physicsBody?.isDynamic = true
         mrquack.physicsBody?.categoryBitMask = PhysicsCategory.Monster
         mrquack.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
-        let actualY2 = random(min: mrquack.size.height/2, max: size.height - mrquack.size.height/2)
+        let actualY2 = random(min: mrquack.size.height/0.4, max: size.height - mrquack.size.height/2)
         mrquack.position = CGPoint(x: size.width + mrquack.size.width/2, y: actualY2)
         addChild(mrquack)
         mrquack.physicsBody = SKPhysicsBody(rectangleOf: mrquack.size)
